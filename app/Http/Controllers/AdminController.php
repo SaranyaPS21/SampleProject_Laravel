@@ -54,8 +54,14 @@ class AdminController extends Controller
     public function customerview()
     {
         
-         $data = Customer::all();
-       return view('customerview', compact('data')); 
+    //      $data = Customer::all();
+    //    return view('customerview', compact('data'));
+    
+    $customers = Customer::all();
+    $invoices = Invoice::join('customers', 'invoices.customerid', '=', 'customers.id')
+    ->get();
+
+    return view('customerview', compact('customers', 'invoices'));
 
     }
     public function customerupdate($id)
